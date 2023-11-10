@@ -1,20 +1,63 @@
 #include "Board.h"
 #include <SFML/Graphics.hpp>
+#include "Cords.h"
 
-void Board::InitializeBoard(sf::RectangleShape board[15][15])
+void Board::InitializeBoard(sf::RectangleShape  board[15][15], sf::CircleShape  circle[4][4])
 {
-    const int WINDOW_WIDTH = 800;
-    const int WINDOW_HEIGHT = 800;
+   
 
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Wietnamczyk");
-
-    sf::CircleShape circle;
-    circle.setRadius(20.0f); // Promien kola
-    circle.setFillColor(sf::Color::Blue); // Kolor wypelnienia
-    circle.setOutlineColor(sf::Color::Red); // Kolor konturu
-    circle.setOutlineThickness(2.0f); // Grubosc konturu
-    circle.setPosition(0.0f, 0.0f); // Pozycja kola (x, y)
+    
+    /*
+    circle[4][4].setRadius(20.0f); // Promien kola
+    circle[4][4].setFillColor(sf::Color::Blue); // Kolor wypelnienia                  //dokonczyc to zeby renderowaly sie na planszy
+    circle[4][4].setOutlineColor(sf::Color::Red); // Kolor konturu
+    circle[4][4].setOutlineThickness(2.0f); // Grubosc konturu
+    circle[4][4].setPosition(0.0f, 0.0f); // Pozycja kola (x, y)
     // Initialize the board, e.g., set colors and positions of the squares
+    */
+    for (int player = 0; player < 4; ++player) {
+        for (int pin = 0; pin < 4; ++pin) {
+            circle[player][pin].setRadius(20);
+            circle[player][pin].setOutlineThickness(2);
+            circle[player][pin].setOutlineColor(sf::Color::Black);
+
+            if (player == 0) {
+
+                circle[player][pin].setFillColor(sf::Color::Red);
+            }
+            else if (player == 1) {
+                circle[player][pin].setFillColor(sf::Color::Green);
+            }
+            else if (player == 2) {
+                circle[player][pin].setFillColor(sf::Color::Yellow);
+            }
+            else if (player == 3) {
+                circle[player][pin].setFillColor(sf::Color::Blue);
+            }
+
+        }
+    }
+
+    circle[0][0].setPosition(80, 480); //lewy dolny
+    circle[0][1].setPosition(80,440);
+    circle[0][2].setPosition(120, 480);
+    circle[0][3].setPosition(120, 440);
+
+    circle[1][0].setPosition(80, 80); //lewy gorny
+    circle[1][1].setPosition(80, 120);
+    circle[1][2].setPosition(120, 80);
+    circle[1][3].setPosition(120, 120);
+
+    circle[2][0].setPosition(440, 80); //prawy gorny
+    circle[2][1].setPosition(440, 120);
+    circle[2][2].setPosition(480, 80);
+    circle[2][3].setPosition(480, 120);
+
+    circle[3][0].setPosition(440, 440); //prawy dolny
+    circle[3][1].setPosition(440, 480);
+    circle[3][2].setPosition(480, 440);
+    circle[3][3].setPosition(480, 480);
+
     for (int row = 0; row < 15; ++row) {
         for (int col = 0; col < 15; ++col) {
             board[row][col].setSize(sf::Vector2f(40, 40));
@@ -65,7 +108,7 @@ void Board::InitializeBoard(sf::RectangleShape board[15][15])
                 board[row][col].setFillColor(sf::Color::White);
             }
 
-
+            
             if (row == 8 && col == 2) {
                 board[row][col].setFillColor(sf::Color::Color(128, 128, 128, 255));
             }
@@ -80,21 +123,31 @@ void Board::InitializeBoard(sf::RectangleShape board[15][15])
             }
         }
     }
-        while (window.isOpen()) {
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    window.close();
-                }
-            }
+        
+}
 
-            window.clear();
 
-            for (int row = 0; row < 15; ++row) {
-                for (int col = 0; col < 15; ++col) {
-                    window.draw(board[row][col]);
-                }
-            }
-            window.display();
-        }
+
+
+
+void Board::DisplayMovablePawns()
+{
+    
+}
+
+
+void Board::SetSpawnPosition(int player,int pawn, sf::CircleShape  circle[4][4])
+{
+    if (player >= 0 && player < 4 && pawn >= 0 && pawn < 4) {
+        circle[player][pawn].setPosition(spawnPositions[player][pawn].x, spawnPositions[player][pawn].y);
+    }
+    else {
+        //moze jakajajs obsluga erroru
+    }
+}
+
+
+Cords Board::GetRespawnPoint(int player, int pawn)
+{
+    return spawnPositions[player][pawn];
 }

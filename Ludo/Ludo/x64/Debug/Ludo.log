@@ -1,4 +1,20 @@
-﻿  Board.cpp
-C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Board.cpp(21,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Board.cpp(21,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  Player.cpp
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(15,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(15,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(133,11): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(134,11): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(154,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(154,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(218,100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(218,81): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(127): warning C4715: 'Player::IsPawnInPlay': not all control paths return a value
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Player.cpp(228): warning C4715: 'Player::Checkmate': not all control paths return a value
   Ludo.vcxproj -> C:\Users\macie\Documents\GitHub\Ludo\Ludo\x64\Debug\Ludo.exe
