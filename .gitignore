@@ -30,13 +30,7 @@
 *.exe
 *.out
 *.app
-Ludo/Ludo/x64/Debug/Board.obj
-Ludo/Ludo/x64/Debug/Ludo.ilk
-Ludo/Ludo/x64/Debug/Ludo.log
-Ludo/Ludo/x64/Debug/Ludo.tlog/CL.command.1.tlog
-Ludo/Ludo/x64/Debug/Ludo.tlog/CL.read.1.tlog
-Ludo/Ludo/x64/Debug/Ludo.tlog/CL.write.1.tlog
-Ludo/Ludo/x64/Debug/Ludo.tlog/link.command.1.tlog
-Ludo/Ludo/x64/Debug/Ludo.tlog/link.read.1.tlog
-Ludo/Ludo/x64/Debug/Ludo.tlog/link.write.1.tlog
+
 *.obj
+*.vsidx
+.vs/*.*
