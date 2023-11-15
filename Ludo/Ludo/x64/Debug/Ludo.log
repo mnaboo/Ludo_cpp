@@ -1,6 +1,0 @@
-﻿  Board.cpp
-C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Board.cpp(64,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Board.cpp(64,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Board.cpp(142,102): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\macie\Documents\GitHub\Ludo\Ludo\Ludo\Board.cpp(142,70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Ludo.vcxproj -> C:\Users\macie\Documents\GitHub\Ludo\Ludo\x64\Debug\Ludo.exe
