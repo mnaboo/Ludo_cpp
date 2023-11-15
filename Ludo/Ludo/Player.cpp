@@ -5,7 +5,8 @@ void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board
     int x_0 = p1[0].x * 40;
     int y_0 = p1[0].y * 40;
     // zrob petle ktora nie pozwala wyrzucic iles kostek pod rzad
-    
+    system("cls");
+    std::cout << "Dice: " << steps << std::endl;
     switch (steps) {
     case 6:
         if (this->SixesLimit()) { // jezeli wyrzuci sie pod rzad
@@ -13,6 +14,7 @@ void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board
         }
         else if (!IsPawnInPlay(player, pawn, circle)) {
             circle[player][pawn].setPosition(x_0, y_0); // wpuszczenie pionka do gry
+            std::cout << "Wpuszczono pionka do gry" << std::endl;
         }
         else {
             Conditions(player, pawn, steps, circle, p1);
@@ -128,6 +130,7 @@ bool Player::IsPawnInPlay(int player, int pawn, sf::CircleShape circle[4][4]) //
 
 void Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4], Cords p1[61])
 {
+    
     system("cls");
     sf::Vector2f currentPosition = circle[player][pawn].getPosition();
     int x = currentPosition.x;
@@ -161,6 +164,7 @@ bool Player::SixesLimit()
 {
     this->sixes ++;
     if (sixes >= 3) {
+        std::cout << "Wyrzucono 3 szostki pod rzad" << std::endl;
         return true;
     }
     else {
@@ -611,6 +615,9 @@ void Player::getBlueCords()
         px[i] = p4[i];
     }
 }
+
+
+
 
 
 
