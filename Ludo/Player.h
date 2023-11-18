@@ -16,9 +16,10 @@ public:
 	void getYellowCords();
 	void getBlueCords();
 
-	void Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4], Cords p1[61]);
+	bool Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4], Cords p1[61]);
 	bool SixesLimit();
 	bool Checkmate(int player, int x, int y, sf::CircleShape circle[4][4], Cords p1[61]);
 	void InitiateSafeSpaces(Cords px[61]);
+	bool IfCheckmate(int player, int x, int y, sf::CircleShape circle[4][4], Cords px[61]);
 };
 

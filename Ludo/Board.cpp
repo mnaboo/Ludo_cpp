@@ -1,4 +1,4 @@
-#include "Board.h"
+﻿#include "Board.h"
 #include <SFML/Graphics.hpp>
 #include "Cords.h"
 #include <vector> //wydaje mi sie ze moze byc to nie potrzebne bo jest juz w iostream
@@ -258,3 +258,5 @@ bool Board::isPawnMovable(int player, int pawn, int steps, Cords px[61], sf::Cir
     
     return false;
 }
+
+

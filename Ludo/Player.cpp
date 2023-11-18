@@ -9,10 +9,10 @@ void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board
     std::cout << "Dice: " << steps << std::endl;
     switch (steps) {
     case 6:
-        if (this->SixesLimit()) { // jezeli wyrzuci sie pod rzad
+        /*if (this->SixesLimit()) { // jezeli wyrzuci sie pod rzad
             break;
         }
-        else if (!IsPawnInPlay(player, pawn, circle)) {
+        else*/ if (!IsPawnInPlay(player, pawn, circle)) {
             circle[player][pawn].setPosition(x_0, y_0); // wpuszczenie pionka do gry
             std::cout << "Wpuszczono pionka do gry" << std::endl;
         }
@@ -128,9 +128,8 @@ bool Player::IsPawnInPlay(int player, int pawn, sf::CircleShape circle[4][4]) //
     }
 }
 
-void Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4], Cords p1[61])
+bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4], Cords p1[61])
 {
-    
     system("cls");
     sf::Vector2f currentPosition = circle[player][pawn].getPosition();
     int x = currentPosition.x;
@@ -144,17 +143,22 @@ void Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[
         }
     }
     if (i == 60) {  // sprawdza czy skonczono gre, jak tak to nie mozna ruszyc pionkiem
-
+        return false;
     }
     if (i > 54 && i + steps > 60) { // sprawdza czy ruch przy mecie jest mozliwy
-
+        return false;
     }
     else {
         int x_1 = p1[i + steps].x * 40;
         int y_1 = p1[i + steps].y * 40;
         std::cout << "currentX: " << x_1 / 40 << "\t" << "currentY: " << y_1 / 40 << "\n" << std::endl;
         Checkmate(player, x_1, y_1, circle, p1);
+        bool check = Checkmate(player, x_1, y_1, circle, p1);
+        if (check) {
+            return true;
+        }
         circle[player][pawn].setPosition(x_1, y_1);
+        return false;
         //circle[player][pawn].setPosition(  );
     }
 }
@@ -189,7 +193,7 @@ bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4], 
         
         if (px[i].x == x/40 && px[i].y == y/40) { //sprawdza czy pole na ktore sie rusza jest safe
             if (px[i].safe) {
-                std::cout << "Nie ma skucia";
+                //std::cout << "Nie ma skucia";
                 return false; //nie ma skucia //ten bool przyda sie pozniej przy wyswietlaniu komentarzy na ekranie o tym czy bylo jakiejs skucie
                 
             }
@@ -209,18 +213,18 @@ bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4], 
                     }
                }
                 if (enemyNum == 0) {
-                    std::cout << "Nie ma skucia";
+                    //std::cout << "Nie ma skucia";
                     return false; //nie ma skucia
                 }
                 else if (enemyNum > 1) {
-                    std::cout << "Nie ma skucia";
+                    //std::cout << "Nie ma skucia";
                     return false; //mozna cos tutaj wymyslic dla tego żeby pokazac na ekranie ile jakich pionkow jest na jednym polu
                                   //jesli nie bedzie mi sie chcialo bawic w zabawy z rozmiarami pionkow
                 }
                 else {
                     enemyStartCords = board.GetRespawnPoint(player_enemy, pawn_enemy);
                     circle[player_enemy][pawn_enemy].setPosition(enemyStartCords.x, enemyStartCords.y);
-                    std::cout << "Skucie";
+                    //std::cout << "Skucie";
                     return true;
                 }
 
@@ -616,6 +620,63 @@ void Player::getBlueCords()
     }
 }
 
+bool Player::IfCheckmate(int player, int x, int y, sf::CircleShape circle[4][4], Cords px[61])
+{
+    //moze jakajs zmienna do liczenia ile jes pionkow na jednym polu
+
+    Board board;
+    Cords enemyStartCords;
+    sf::Vector2f enemyPostion;
+
+    int enemyNum = 0;
+
+    int player_enemy = 0;
+    int pawn_enemy = 0;
+
+    for (int i = 0; i < 61; i++) {
+
+        if (px[i].x == x / 40 && px[i].y == y / 40) { //sprawdza czy pole na ktore sie rusza jest safe
+            if (px[i].safe) {
+                //std::cout << "Nie ma skucia";
+                return false; //nie ma skucia //ten bool przyda sie pozniej przy wyswietlaniu komentarzy na ekranie o tym czy bylo jakiejs skucie
+
+            }
+            else {
+
+                for (int p = 0; p < 4; p++) {
+
+                    if (p == player) continue; // nie ma sensu sprawdzac czy na tym polu znajduja sie pionki tego samego gracza
+
+                    for (int paw = 0; paw < 4; paw++) {
+                        enemyPostion = circle[p][paw].getPosition();
+                        if (enemyPostion.x == x && enemyPostion.y == y) {
+                            player_enemy = p;
+                            pawn_enemy = paw;
+                            ++enemyNum;
+                        }
+                    }
+                }
+                if (enemyNum == 0) {
+                    //std::cout << "Nie ma skucia";
+                    return false; //nie ma skucia
+                }
+                else if (enemyNum > 1) {
+                    //std::cout << "Nie ma skucia";
+                    return false; //mozna cos tutaj wymyslic dla tego żeby pokazac na ekranie ile jakich pionkow jest na jednym polu
+                    //jesli nie bedzie mi sie chcialo bawic w zabawy z rozmiarami pionkow
+                }
+                else {
+
+                    //std::cout << "Skucie";
+                    return true;
+                }
+
+            }
+        }
+    }
+    //jesli nie jest to sprawdza czy jest na nim jakijs przeciwnik
+    //jesli jest 2 lub wiecej przeciwnikow to nic sie nie dzieje
+}
 
 
 

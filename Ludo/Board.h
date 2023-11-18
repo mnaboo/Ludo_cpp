@@ -26,5 +26,5 @@ public:
     Cords GetRespawnPoint(int player, int pawn);
     std::vector<int> GetMovablePawns(int player, int steps, Cords px[61], sf::CircleShape  circle[4][4]);
     bool isPawnMovable(int player, int pawn, int steps, Cords px[61], sf::CircleShape circle[4][4]);
+    
 };
-
