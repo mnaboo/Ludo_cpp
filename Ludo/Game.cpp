@@ -31,9 +31,9 @@ int Game::Init()
     player4.getBlueCords();
 
     Player players[4] = { player1, player2, player3, player4 };
-    player1.MovePiece(0, 0, 6, board, circle, player1.px);
+    /*player1.MovePiece(0, 0, 6, board, circle, player1.px);
     player1.MovePiece(0, 0, 59, board, circle, player1.px);
-    player2.MovePiece(1, 0, 6, board, circle, player2.px);
+    player2.MovePiece(1, 0, 6, board, circle, player2.px);*/
    
     //player1.MovePiece(0, 0, 58, board, circle, player1.px);
     sf::Font font;
@@ -65,7 +65,13 @@ int Game::Init()
 
     bool sixThrown = false;
 
+    int finale[4] = { NULL, NULL, NULL, NULL };
+    //int finale[4] = { 0, 1, 2, 3};
+    int place = 0;
+    bool finish = false;
+
     int score[4] = { 0, 0, 0, 0 };
+    //cos z wyswietlaniem miejsc trzeba bedzie zrobic
 
     while (window.isOpen()) {
         sf::Event event;
@@ -79,7 +85,16 @@ int Game::Init()
                     if (event.key.code == sf::Keyboard::Escape) { //mozna wyjsc za pomoca escape
                         window.close();
                     }
-                    
+                    if (event.key.code == sf::Keyboard::R && finish) {
+                        GameStarted = false;
+                        for (int i = 0; i < 4; i++) {
+                            for (int j = 0; j < 4; j++) {
+                                Cords enemyStartCords = board1.GetRespawnPoint(i, j);
+                                circle[i][j].setPosition(enemyStartCords.x, enemyStartCords.y);
+                            }
+                        }
+
+                    }
                     if (event.key.code == sf::Keyboard::Enter && (enter[0] || enter[1] || enter[2] || enter[3])) {
                         int j;
                         int x;
@@ -104,15 +119,17 @@ int Game::Init()
                             int y_1 = players[currentPlayer].px[g + diceCount].y * 40;
                             check = players[currentPlayer].IfCheckmate(currentPlayer, x_1, y_1, circle, players[currentPlayer].px);
                             if (g + diceCount == 60) {
-                                ++score[currentPlayer];
-
+                                ++score[currentPlayer]; //dodawanie do wyniku
+                                if (score[currentPlayer] == 4) {
+                                    finale[place] = currentPlayer;
+                                    place++;
+                                }
                             }
                         }
 
                         players[currentPlayer].MovePiece(currentPlayer, j, diceCount, board, circle, players[currentPlayer].px);
 
-                        
-
+                            
                         if (diceCount == 6) {
                             sixThrown = true;
                         }
@@ -139,6 +156,7 @@ int Game::Init()
                                 enter[i] = false;
                             }
                             ++currentPlayer;
+                            
                             if (currentPlayer == 4) {
                                 currentPlayer = 0;
                             }
@@ -147,6 +165,27 @@ int Game::Init()
                        
                         sixThrown = false;
                         check = false;
+                        bool pl[4] = { false, false, false, false };
+                        int fin = 0;
+                        int listJD[3] = { NULL, NULL, NULL };
+                        for (int i = 0; i < 4; i++) {
+                            if (finale[i]) {
+                                listJD[fin] = i;
+                                ++fin;
+                                if (fin == 3) {
+                                    finish = true;
+                                    for (int j = 0; j < 3; j++) {
+                                        pl[listJD[j]] = true;
+                                    }
+                                    for (int d = 0; d < 4; d++) {
+                                        if (pl[d] == false) {
+                                            finale[3] = d; //przypisanie ostatniego miejsca
+                                        }
+                                    }
+                                    
+                                }
+                            }
+                        }
                     } else if (event.key.code == sf::Keyboard::Enter && noMove) {
                         noMove = false;
                         diceThrown = false;
@@ -205,38 +244,48 @@ int Game::Init()
                     if (GameStarted && event.key.code == sf::Keyboard::D && GameStarted && !diceThrown) {
                         std::srand(std::time(0));
                         Dice dice;
-                        diceCount = 1;// dice.Roll();
+                        diceCount = dice.Roll();
                         diceThrown = true;
                     }
                     break;
             }
         }
         if (GameStarted) {
-            window.clear();
-            // Obsluga ruchu gracza
+            window.clear(sf::Color::Black);
+            if (!finish) {
+                window.clear();
+                //wyswietlanie wynikow
+                std::string scortText = "S C O R E :\n\n RED : " + std::to_string(score[0]) + "\n\nGREEN : " + std::to_string(score[1]) + "\n\nYELLOW : " + std::to_string(score[2]) + "\n\nBLUE : " + std::to_string(score[3]);
 
-            if (diceThrown) {
-                std::string dicetext = std::to_string(diceCount) + " points were rolled for " + playersColors[currentPlayer] ;
-                sf::Text diceText(dicetext, font, 15);
-                diceText.setPosition(620, 100);
-                diceText.setFillColor(sf::Color::White);
-                diceText.setStyle(sf::Text::Bold);
+                sf::Text scoretext(scortText, font, 20);
+                scoretext.setPosition(720, 250);
+                scoretext.setFillColor(sf::Color::White);
+                scoretext.setStyle(sf::Text::Bold);
 
-                window.draw(diceText);
+                window.draw(scoretext);
 
-                //z tym "Choose a pawn" mozna mysle wypisac wtedy kiedy jest cos do wybrania a jak nie ma to wyswietlic cos w stylu No matches
+                if (diceThrown) {
+                    std::string dicetext = std::to_string(diceCount) + " points were rolled for " + playersColors[currentPlayer];
+                    sf::Text diceText(dicetext, font, 15);
+                    diceText.setPosition(620, 100);
+                    diceText.setFillColor(sf::Color::White);
+                    diceText.setStyle(sf::Text::Bold);
 
-                //std::vector<int> pawnPlacementOnBoard = board1.GetMovablePawns(currentPlayer, diceCount, players[currentPlayer].px ,circle);
-                
+                    window.draw(diceText);
+
+                    //z tym "Choose a pawn" mozna mysle wypisac wtedy kiedy jest cos do wybrania a jak nie ma to wyswietlic cos w stylu No matches
+
+                    //std::vector<int> pawnPlacementOnBoard = board1.GetMovablePawns(currentPlayer, diceCount, players[currentPlayer].px ,circle);
+
                     first = board1.isPawnMovable(currentPlayer, 0, diceCount, players[currentPlayer].px, circle);
                     second = board1.isPawnMovable(currentPlayer, 1, diceCount, players[currentPlayer].px, circle);
                     third = board1.isPawnMovable(currentPlayer, 2, diceCount, players[currentPlayer].px, circle);
                     fourth = board1.isPawnMovable(currentPlayer, 3, diceCount, players[currentPlayer].px, circle);
-                    std::cout << first << "\t" << second << "\t" << third << "\t" << fourth << std::endl;
-                    
+                    //std::cout << first << "\t" << second << "\t" << third << "\t" << fourth << std::endl;
+
                     bool pins[4] = { first, second, third, fourth };
-                    
-                    
+
+
                     if (!(pins[0] || pins[1] || pins[2] || pins[3])) {
                         noMove = true;
                     }
@@ -269,15 +318,15 @@ int Game::Init()
                                 text += "\t4\t";
                             }
                         }
-                        std::string MoveText = "Move is avaliable for :\n\n" + text ;
+                        std::string MoveText = "Move is avaliable for :\n\n" + text;
                         sf::Text moveText(MoveText, font, 15);
                         moveText.setPosition(620, 150);
                         moveText.setFillColor(sf::Color::White);
                         moveText.setStyle(sf::Text::Bold);
 
                         window.draw(moveText);
-                    } 
-                    
+                    }
+
                     if (pushed) {
                         for (int i = 0; i < 4; i++) {
                             if (enter[i]) {
@@ -294,22 +343,37 @@ int Game::Init()
                             circle[currentPlayer][i].setOutlineColor(sf::Color::Black);
                         }
                     }
-                    
+
                     //trzeba bedzie ogarnac to że jak wyrzuca sie 6 to rzuca sie koscia jeszcze raz, oraz wtedy kiedy sie kogos skuje
                     //oraz to że jak nie mozna ruszyc zadnym pionkiem to trzeba skipnac jakims przyciskiem
-                    
-               
+
+
+                }
+                else {
+                    std::string dicetext = "Throw a dice for " + playersColors[currentPlayer];
+                    sf::Text diceText(dicetext, font, 20);
+                    diceText.setPosition(620, 100);
+                    diceText.setFillColor(sf::Color::White);
+                    diceText.setStyle(sf::Text::Bold);
+
+                    window.draw(diceText);
+                    //cos z czasem do wyrzutu trzeba bedzie zrobic 
+                }
             }
             else {
-                std::string dicetext = "Throw a dice for " + playersColors[currentPlayer];
-                sf::Text diceText(dicetext, font, 20);
-                diceText.setPosition(620, 100);
-                diceText.setFillColor(sf::Color::White);
-                diceText.setStyle(sf::Text::Bold);
+                std::string scortText = "P L A C E S :\n\n 1 ST : " + playersColors[finale[0]] + "\n\n2 ND : " + playersColors[finale[1]] + "\n\n3 RD : " + playersColors[finale[2]] + "\n\n4 TH : " + playersColors[finale[3]];
 
-                window.draw(diceText);
-                //cos z czasem do wyrzutu trzeba bedzie zrobic 
+                sf::Text scoretext(scortText, font, 30);
+                scoretext.setPosition(650, 150);
+                scoretext.setFillColor(sf::Color::White);
+                scoretext.setStyle(sf::Text::Bold);
+
+                window.draw(scoretext);
             }
+           
+
+
+            
             
             //std::cout << "Ruch gracza " << currentPlayer + 1 << ": Wyrzucono " << diceCount << " oczek." << std::endl;
             // Tutaj dodaj kod do obslugi ruchu gracza, np. podswietlanie pionkow, klikniecie itp.
@@ -335,8 +399,23 @@ int Game::Init()
 
 
             window.display();
+        } else { //welcome screen
+            window.clear(sf::Color::Black);
+            sf::Text welcomeText("Welcome to LUDO", font, 40);
+            welcomeText.setPosition(300, 200);
+            welcomeText.setFillColor(sf::Color::White);
+            welcomeText.setStyle(sf::Text::Bold);
+
+            sf::Text startText("Press 'S' to start the game", font, 20);
+            startText.setPosition(310, 300);
+            startText.setFillColor(sf::Color::White);
+            startText.setStyle(sf::Text::Bold);
+
+            window.draw(welcomeText);
+            window.draw(startText);
+            window.display();
         }
-    }
+    } 
         //window.clear();
         ////rysowanie planszy
         //for (int row = 0; row < 15; ++row) {
