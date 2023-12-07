@@ -8,7 +8,7 @@ int Game::Init()
     const int WINDOW_WIDTH = 1000;
     const int WINDOW_HEIGHT = 600;
 
-    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Wietnamczyk");
+    sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Ludo");
     sf::CircleShape circle[4][4];
     sf::RectangleShape board[15][15];
     Board board1;
@@ -117,7 +117,7 @@ int Game::Init()
 
                             int x_1 = players[currentPlayer].px[g + diceCount].x * 40;
                             int y_1 = players[currentPlayer].px[g + diceCount].y * 40;
-                            check = players[currentPlayer].IfCheckmate(currentPlayer, x_1, y_1, circle, players[currentPlayer].px);
+                            check = players[currentPlayer].IfCheckmate(currentPlayer, x_1, y_1, circle /*,players[currentPlayer].px*/);
                             if (g + diceCount == 60) {
                                 ++score[currentPlayer]; //dodawanie do wyniku
                                 if (score[currentPlayer] == 4) {

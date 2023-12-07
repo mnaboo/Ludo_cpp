@@ -17,7 +17,7 @@ void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board
             std::cout << "Wpuszczono pionka do gry" << std::endl;
         }
         else {
-            Conditions(player, pawn, steps, circle, p1);
+            Conditions(player, pawn, steps, circle);
         }
         // dodaj obsluge ponownego rzutu 
         break;
@@ -27,7 +27,7 @@ void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board
         }
         else {
             sixes = 0;
-            Conditions(player, pawn, steps, circle, p1);
+            Conditions(player, pawn, steps, circle);
             //sf::Vector2f currentPosition = circle[player][pawn].getPosition();
             //int x = currentPosition.x;
             //int y = currentPosition.y;
@@ -128,7 +128,7 @@ bool Player::IsPawnInPlay(int player, int pawn, sf::CircleShape circle[4][4]) //
     }
 }
 
-bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4], Cords p1[61])
+bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4])
 {
     system("cls");
     sf::Vector2f currentPosition = circle[player][pawn].getPosition();
@@ -138,7 +138,7 @@ bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[
     std::cout << "Dice: " << steps << std::endl;
     int i = 0;
     for (int j = 0; j < 61; j++) {
-        if (p1[j].x * 40 == x && p1[j].y * 40 == y) {
+        if (px[j].x * 40 == x && px[j].y * 40 == y) {
             i = j;
         }
     }
@@ -149,11 +149,11 @@ bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[
         return false;
     }
     else {
-        int x_1 = p1[i + steps].x * 40;
-        int y_1 = p1[i + steps].y * 40;
+        int x_1 = px[i + steps].x * 40;
+        int y_1 = px[i + steps].y * 40;
         std::cout << "currentX: " << x_1 / 40 << "\t" << "currentY: " << y_1 / 40 << "\n" << std::endl;
-        Checkmate(player, x_1, y_1, circle, p1);
-        bool check = Checkmate(player, x_1, y_1, circle, p1);
+        Checkmate(player, x_1, y_1, circle);
+        bool check = Checkmate(player, x_1, y_1, circle);
         if (check) {
             return true;
         }
@@ -176,7 +176,7 @@ bool Player::SixesLimit()
     }
 }
 
-bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4], Cords px[61])
+bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4])
 {   
     //moze jakajs zmienna do liczenia ile jes pionkow na jednym polu
 
@@ -235,7 +235,7 @@ bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4], 
     //jesli jest 2 lub wiecej przeciwnikow to nic sie nie dzieje
 }
 
-void Player::InitiateSafeSpaces(Cords px[61])
+void Player::InitiateSafeSpaces()
 {
     px[0].safe = true;
     px[9].safe = true;
@@ -250,7 +250,7 @@ void Player::InitiateSafeSpaces(Cords px[61])
 void Player::getRedCords() {
     Cords p1[61];
     int j = 0;
-    InitiateSafeSpaces(p1);
+    InitiateSafeSpaces();
     for (int i = 0; i < 6; ++i) { // 0 - 5
 
         p1[i].x = 6;
@@ -350,7 +350,7 @@ void Player::getGreenCords()
 {
     Cords p2[61];
     int j = 0;
-    InitiateSafeSpaces(p2);
+    InitiateSafeSpaces();
     for (int i = 0; i < 6; ++i) {
         p2[i].x = 1 + j;
         p2[i].y = 6;
@@ -434,7 +434,7 @@ void Player::getYellowCords()
 {
     Cords p3[61];
     int j = 0;
-    InitiateSafeSpaces(p3);
+    InitiateSafeSpaces();
     for (int i = 0; i < 6; ++i) { // 0 - 5
 
         p3[i].x = 8;
@@ -529,7 +529,7 @@ void Player::getBlueCords()
 {
     Cords p4[61];
     int j = 0;
-    InitiateSafeSpaces(p4);
+    InitiateSafeSpaces();
     for (int i = 0; i < 6; ++i) { // 0 - 5
 
         p4[i].x = 13 - j;
@@ -620,7 +620,7 @@ void Player::getBlueCords()
     }
 }
 
-bool Player::IfCheckmate(int player, int x, int y, sf::CircleShape circle[4][4], Cords px[61])
+bool Player::IfCheckmate(int player, int x, int y, sf::CircleShape circle[4][4])
 {
     //moze jakajs zmienna do liczenia ile jes pionkow na jednym polu
 
