@@ -31,10 +31,12 @@ int Game::Init()
     player4.getBlueCords();
 
     Player players[4] = { player1, player2, player3, player4 };
-    /*player1.MovePiece(0, 0, 6, board, circle, player1.px);
-    player1.MovePiece(0, 0, 59, board, circle, player1.px);
-    player2.MovePiece(1, 0, 6, board, circle, player2.px);*/
-   
+    
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            players[i].MovePiece(i, j, 59, board, circle);
+        }
+    }
     //player1.MovePiece(0, 0, 58, board, circle, player1.px);
     sf::Font font;
     if (!font.loadFromFile("C:/Users/macie/Desktop/SFML/SFML-2.6.0/fontt.ttf")) {
@@ -68,11 +70,12 @@ int Game::Init()
     int finale[4] = { NULL, NULL, NULL, NULL };
     //int finale[4] = { 0, 1, 2, 3};
     int place = 0;
-    bool finish = false;
+    bool finish = false;//true; 
 
     int score[4] = { 0, 0, 0, 0 };
     //cos z wyswietlaniem miejsc trzeba bedzie zrobic
 
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -87,7 +90,10 @@ int Game::Init()
                     }
                     if (event.key.code == sf::Keyboard::R && finish) {
                         GameStarted = false;
+                        finish = false;
                         for (int i = 0; i < 4; i++) {
+                            score[i] = 0;
+                            finale[i] = NULL;
                             for (int j = 0; j < 4; j++) {
                                 Cords enemyStartCords = board1.GetRespawnPoint(i, j);
                                 circle[i][j].setPosition(enemyStartCords.x, enemyStartCords.y);
@@ -127,7 +133,7 @@ int Game::Init()
                             }
                         }
 
-                        players[currentPlayer].MovePiece(currentPlayer, j, diceCount, board, circle, players[currentPlayer].px);
+                        players[currentPlayer].MovePiece(currentPlayer, j, diceCount, board, circle/*, players[currentPlayer].px*/);
 
                             
                         if (diceCount == 6) {
@@ -244,8 +250,16 @@ int Game::Init()
                     if (GameStarted && event.key.code == sf::Keyboard::D && GameStarted && !diceThrown) {
                         std::srand(std::time(0));
                         Dice dice;
-                        diceCount = dice.Roll();
+                        diceCount = dice.Roll() /*1*/;
                         diceThrown = true;
+                    }
+                    if (event.key.code == sf::Keyboard::P) {
+                        for (int i = 0; i < 4; i++) {
+                            for (int j = 0; j < 4; j++) {
+                                players[i].MovePiece(i, j, 6, board, circle);
+                                players[i].MovePiece(i, j, 59, board, circle);
+                            }
+                        }
                     }
                     break;
             }

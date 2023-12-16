@@ -9,7 +9,7 @@ class Player
 	
 public:
 	Cords px[61];
-	void MovePiece(int player, int pawn, int steps, sf::RectangleShape board[15][15], sf::CircleShape cirlce[4][4], Cords p1[61]);
+	void MovePiece(int player, int pawn, int steps, sf::RectangleShape board[15][15], sf::CircleShape cirlce[4][4]);
 	bool IsPawnInPlay(int player, int pawn, sf::CircleShape circle[4][4]);
 
 	void getRedCords();

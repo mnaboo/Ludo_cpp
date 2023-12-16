@@ -1,9 +1,9 @@
 ﻿#include "Player.h"
 #include <iostream>
 
-void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board[15][15], sf::CircleShape circle[4][4], Cords p1[61]) { // player to pierwsza wspolrzedna circle a pawn to druga
-    int x_0 = p1[0].x * 40;
-    int y_0 = p1[0].y * 40;
+void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board[15][15], sf::CircleShape circle[4][4]) { // player to pierwsza wspolrzedna circle a pawn to druga
+    int x_0 = px[0].x * 40;
+    int y_0 = px[0].y * 40;
     // zrob petle ktora nie pozwala wyrzucic iles kostek pod rzad
     system("cls");
     std::cout << "Dice: " << steps << std::endl;
