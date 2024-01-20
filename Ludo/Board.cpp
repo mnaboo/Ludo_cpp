@@ -6,17 +6,6 @@
 
 void Board::InitializeBoard(sf::RectangleShape  board[15][15], sf::CircleShape  circle[4][4])
 {
-   
-
-    
-    /*
-    circle[4][4].setRadius(20.0f); // Promien kola
-    circle[4][4].setFillColor(sf::Color::Blue); // Kolor wypelnienia                  //dokonczyc to zeby renderowaly sie na planszy
-    circle[4][4].setOutlineColor(sf::Color::Red); // Kolor konturu
-    circle[4][4].setOutlineThickness(2.0f); // Grubosc konturu
-    circle[4][4].setPosition(0.0f, 0.0f); // Pozycja kola (x, y)
-    // Initialize the board, e.g., set colors and positions of the squares
-    */
     for (int player = 0; player < 4; ++player) {
         for (int pin = 0; pin < 4; ++pin) {
             circle[player][pin].setRadius(20);
@@ -67,7 +56,6 @@ void Board::InitializeBoard(sf::RectangleShape  board[15][15], sf::CircleShape  
             board[row][col].setOutlineColor(sf::Color::Black); // obramowanie
             board[row][col].setOutlineThickness(1.0f);
 
-            // Example colors for different areas on the board
             if ((row < 6 && col < 6) || (row < 6 && col > 8) || (row > 8 && col < 6) || (row > 8 && col > 8)) {
                 board[row][col].setFillColor(sf::Color::Cyan);
             }
@@ -152,60 +140,6 @@ Cords Board::GetRespawnPoint(int player, int pawn)
 }
 
 
-std::vector<int> Board::GetMovablePawns(int player, int steps, Cords px[61], sf::CircleShape circle[4][4]) {
-    Player playerInstance;
-    int x, y;
-    std::vector<int> pawnPlacementOnBoard1;
-
-    /*int lol[4] = { NULL,NULL,NULL,NULL };
-    int cnt = 0;*/
-
-    for (int pawn = 0; pawn < 4; pawn++) {
-        sf::Vector2f currentPosition = circle[player][pawn].getPosition();
-        x = currentPosition.x;
-        y = currentPosition.y;
-        std::cout << x << "\t" << y << std::endl;
-        Cords currentCords = GetRespawnPoint(player, pawn);
-
-        for (int j = 0; j < 61; j++) {
-            
-            if (px[j].x * 40 == x && px[j].y * 40 == y) {
-                int i = j;
-                //pawnPlacementOnBoard1.push_back(pawn);
-                switch (steps) {
-                case 6:
-                    if (playerInstance.IsPawnInPlay(player, pawn, circle) && !((i == 60) || (i > 54 && i + steps > 60))) {
-                        pawnPlacementOnBoard1.push_back(pawn);
-                    }
-                    else if (!((i == 60) || (i > 54 && i + steps > 60))) {
-                        pawnPlacementOnBoard1.push_back(pawn);
-                    }
-                    break;
-                default:
-                    if (playerInstance.IsPawnInPlay(player, pawn, circle) && !((i == 60) || (i > 54 && i + steps > 60))) {
-                        pawnPlacementOnBoard1.push_back(pawn);
-                    }
-                    break;
-                }
-            } else if (currentCords.x == x && currentCords.y == y) {
-                switch (steps) {
-                case 6:
-                    if (!playerInstance.IsPawnInPlay(player, pawn, circle)) {
-                        pawnPlacementOnBoard1.push_back(pawn);
-                    }
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
-    }
-    std::cout << pawnPlacementOnBoard1.size() << std::endl;
-    return pawnPlacementOnBoard1;
-}
-    
-
-
 bool Board::isPawnMovable(int player, int pawn, int steps, Cords px[61], sf::CircleShape circle[4][4])
 {
     Player playerInstance;
@@ -215,8 +149,7 @@ bool Board::isPawnMovable(int player, int pawn, int steps, Cords px[61], sf::Cir
         sf::Vector2f currentPosition = circle[player][pawn].getPosition();
         x = currentPosition.x;
         y = currentPosition.y;
-        /*std::cout << x << "\t" << y << std::endl;
-        std::cout << px[0].x * 40 << "\t" << px[0].y * 40 << std::endl;*/
+        
         Cords currentCords = GetRespawnPoint(player, pawn);
 
         for (int j = 0; j < 61; j++) {
@@ -245,6 +178,7 @@ bool Board::isPawnMovable(int player, int pawn, int steps, Cords px[61], sf::Cir
         }
         if (currentCords.x == x && currentCords.y == y) { //to dla tych z respawn point
              switch (steps) {
+                case 1:
                 case 6:
                     if (!playerInstance.IsPawnInPlay(player, pawn, circle)) {
                         return true;

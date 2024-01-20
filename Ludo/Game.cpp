@@ -3,6 +3,7 @@
 #include <thread>
 #include <chrono>
 
+
 int Game::Init()
 {
     const int WINDOW_WIDTH = 1000;
@@ -39,8 +40,9 @@ int Game::Init()
     }
     //player1.MovePiece(0, 0, 58, board, circle, player1.px);
     sf::Font font;
-    if (!font.loadFromFile("C:/Users/macie/Desktop/SFML/SFML-2.6.0/fontt.ttf")) {
+    if (!font.loadFromFile("Font/fontt.ttf")) {
         //bedzie error jak nie zaladuje czcionki
+        std::cout << "ERR" << std::endl;
         return -1;
     }
     
@@ -74,8 +76,10 @@ int Game::Init()
 
     int score[4] = { 0, 0, 0, 0 };
     //cos z wyswietlaniem miejsc trzeba bedzie zrobic
-
+    bool sixLimit = false;
+   
     
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -101,7 +105,7 @@ int Game::Init()
                         }
 
                     }
-                    if (event.key.code == sf::Keyboard::Enter && (enter[0] || enter[1] || enter[2] || enter[3])) {
+                    if (event.key.code == sf::Keyboard::Enter && (enter[0] || enter[1] || enter[2] || enter[3]) && !sixLimit) {
                         int j;
                         int x;
                         int y;
@@ -178,7 +182,7 @@ int Game::Init()
                             if (finale[i]) {
                                 listJD[fin] = i;
                                 ++fin;
-                                if (fin == 3) {
+                                if (fin == 2) {
                                     finish = true;
                                     for (int j = 0; j < 3; j++) {
                                         pl[listJD[j]] = true;
@@ -199,7 +203,15 @@ int Game::Init()
                         if (currentPlayer == 4) {
                             currentPlayer = 0;
                         }
+                    } else if (event.key.code == sf::Keyboard::Enter && sixLimit) {
+                        diceThrown = false;
+                        sixLimit = false;
+                        ++currentPlayer;
+                        if (currentPlayer == 4) {
+                            currentPlayer = 0;
+                        }
                     }
+
                     if (event.key.code == sf::Keyboard::Num1 && first ) { 
                         for (int i = 0; i < 4; i++) {
                             if (i == 0) {
@@ -247,20 +259,46 @@ int Game::Init()
                     if (event.key.code == sf::Keyboard::S && !GameStarted) {
                         GameStarted = true;
                     }
-                    if (GameStarted && event.key.code == sf::Keyboard::D && GameStarted && !diceThrown) {
+                    if (GameStarted && event.key.code == sf::Keyboard::D && GameStarted && !diceThrown && !sixLimit) {
                         std::srand(std::time(0));
                         Dice dice;
-                        diceCount = dice.Roll() /*1*/;
-                        diceThrown = true;
+                        diceCount = dice.Roll(); /*1*/
+                        
+                        //tutaj oagrniemy dodawanie sixlimit
+                        if (diceCount == 6) {
+                            if (players[currentPlayer].GetSixes() < 2) {
+                                players[currentPlayer].SetSixes(players[currentPlayer].GetSixes() + 1);
+                                diceThrown = true;
+                                sixLimit = false;
+                            }
+                            else {
+                                players[currentPlayer].SetSixes(0);
+                                sixLimit = true;
+                                diceThrown = false;
+                            }
+                           
+
+                        }
+                        else {
+                            diceThrown = true;
+                        }
+
                     }
-                    if (event.key.code == sf::Keyboard::P) {
+                    /*if (event.key.code == sf::Keyboard::P) {
                         for (int i = 0; i < 4; i++) {
                             for (int j = 0; j < 4; j++) {
                                 players[i].MovePiece(i, j, 6, board, circle);
                                 players[i].MovePiece(i, j, 59, board, circle);
                             }
                         }
-                    }
+                    }*/
+                    /*if (event.key.code == sf::Keyboard::N) {
+                        players[1].MovePiece(1, 0, 6, board, circle);
+                        players[1].MovePiece(1, 0, 9, board, circle);
+                        players[0].MovePiece(0, 0, 6, board, circle);
+                        players[0].MovePiece(0, 0, 21, board, circle);
+                        
+                    }*/
                     break;
             }
         }
@@ -340,7 +378,7 @@ int Game::Init()
 
                         window.draw(moveText);
                     }
-
+                    
                     if (pushed) {
                         for (int i = 0; i < 4; i++) {
                             if (enter[i]) {
@@ -348,6 +386,7 @@ int Game::Init()
                             }
                             else {
                                 circle[currentPlayer][i].setOutlineColor(sf::Color::Black);
+
                             }
 
                         }
@@ -363,8 +402,8 @@ int Game::Init()
 
 
                 }
-                else {
-                    std::string dicetext = "Throw a dice for " + playersColors[currentPlayer];
+                else if (!diceThrown && !sixLimit) {
+                    std::string dicetext = "Roll a dice for " + playersColors[currentPlayer];
                     sf::Text diceText(dicetext, font, 20);
                     diceText.setPosition(620, 100);
                     diceText.setFillColor(sf::Color::White);
@@ -373,11 +412,20 @@ int Game::Init()
                     window.draw(diceText);
                     //cos z czasem do wyrzutu trzeba bedzie zrobic 
                 }
+                else if (!diceThrown && sixLimit) { //limit 6
+                    std::string MoveText = "Limit of 6's rolled in a row \n\nhas been reached";
+                    sf::Text moveText(MoveText, font, 15);
+                    moveText.setPosition(620, 100);
+                    moveText.setFillColor(sf::Color::White);
+                    moveText.setStyle(sf::Text::Bold);
+                
+                    window.draw(moveText);
+                }
             }
             else {
-                std::string scortText = "P L A C E S :\n\n 1 ST : " + playersColors[finale[0]] + "\n\n2 ND : " + playersColors[finale[1]] + "\n\n3 RD : " + playersColors[finale[2]] + "\n\n4 TH : " + playersColors[finale[3]];
+                std::string scoreString = "P L A C E S :\n\n 1 ST : " + playersColors[finale[0]] + "\n\n2 ND : " + playersColors[finale[1]] + "\n\n3 RD : " + playersColors[finale[2]] + "\n\n4 TH : " + playersColors[finale[3]];
 
-                sf::Text scoretext(scortText, font, 30);
+                sf::Text scoretext(scoreString, font, 30);
                 scoretext.setPosition(650, 150);
                 scoretext.setFillColor(sf::Color::White);
                 scoretext.setStyle(sf::Text::Bold);

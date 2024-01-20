@@ -5,16 +5,17 @@ void Player::MovePiece(int player, int pawn, int steps, sf::RectangleShape board
     int x_0 = px[0].x * 40;
     int y_0 = px[0].y * 40;
     // zrob petle ktora nie pozwala wyrzucic iles kostek pod rzad
-    system("cls");
-    std::cout << "Dice: " << steps << std::endl;
+    //system("cls");
+    //std::cout << "Dice: " << steps << std::endl;
     switch (steps) {
     case 6:
+    case 1:
         /*if (this->SixesLimit()) { // jezeli wyrzuci sie pod rzad
             break;
         }
         else*/ if (!IsPawnInPlay(player, pawn, circle)) {
             circle[player][pawn].setPosition(x_0, y_0); // wpuszczenie pionka do gry
-            std::cout << "Wpuszczono pionka do gry" << std::endl;
+           // std::cout << "Wpuszczono pionka do gry" << std::endl;
         }
         else {
             Conditions(player, pawn, steps, circle);
@@ -130,12 +131,12 @@ bool Player::IsPawnInPlay(int player, int pawn, sf::CircleShape circle[4][4]) //
 
 bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[4][4])
 {
-    system("cls");
+    //system("cls");
     sf::Vector2f currentPosition = circle[player][pawn].getPosition();
     int x = currentPosition.x;
     int y = currentPosition.y;
-    std::cout << "previousX: " << x / 40 << "\t" << "previousY: " << y / 40 << std::endl;
-    std::cout << "Dice: " << steps << std::endl;
+    /*std::cout << "previousX: " << x / 40 << "\t" << "previousY: " << y / 40 << std::endl;
+    std::cout << "Dice: " << steps << std::endl;*/
     int i = 0;
     for (int j = 0; j < 61; j++) {
         if (px[j].x * 40 == x && px[j].y * 40 == y) {
@@ -167,8 +168,9 @@ bool Player::Conditions(int player, int pawn, int steps, sf::CircleShape circle[
 bool Player::SixesLimit()
 {
     this->sixes ++;
-    if (sixes >= 3) {
-        std::cout << "Wyrzucono 3 szostki pod rzad" << std::endl;
+    if (sixes == 3) {
+        //std::cout << "Wyrzucono 3 szostki pod rzad" << std::endl;
+        sixes = 0;
         return true;
     }
     else {
@@ -188,7 +190,10 @@ bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4])
 
     int player_enemy = 0;
     int pawn_enemy = 0;
-    
+    bool XD = px[0].safe;
+    bool lol = px[1].safe;
+    bool lll = px[9].safe;
+
     for (int i = 0; i < 61; i++) {
         
         if (px[i].x == x/40 && px[i].y == y/40) { //sprawdza czy pole na ktore sie rusza jest safe
@@ -235,22 +240,10 @@ bool Player::Checkmate(int player , int x, int y, sf::CircleShape circle[4][4])
     //jesli jest 2 lub wiecej przeciwnikow to nic sie nie dzieje
 }
 
-void Player::InitiateSafeSpaces()
-{
-    px[0].safe = true;
-    px[9].safe = true;
-    px[14].safe = true;
-    px[23].safe = true;
-    px[28].safe = true;
-    px[37].safe = true;
-    px[42].safe = true;
-    px[51].safe = true;
-}
-
 void Player::getRedCords() {
     Cords p1[61];
     int j = 0;
-    InitiateSafeSpaces();
+    
     for (int i = 0; i < 6; ++i) { // 0 - 5
 
         p1[i].x = 6;
@@ -339,6 +332,14 @@ void Player::getRedCords() {
     for (int i = 0; i < 61; ++i) {
         px[i] = p1[i];
     }
+    px[0].safe = true;
+    px[9].safe = true;
+    px[14].safe = true;
+    px[23].safe = true;
+    px[28].safe = true;
+    px[37].safe = true;
+    px[42].safe = true;
+    px[51].safe = true;
     /*
     for (int i = 0; i < 61; i++) {
         std::cout << i << " : " << "x: " << p1[i].x << "  y: " << p1[i].y << std::endl;
@@ -350,7 +351,7 @@ void Player::getGreenCords()
 {
     Cords p2[61];
     int j = 0;
-    InitiateSafeSpaces();
+    
     for (int i = 0; i < 6; ++i) {
         p2[i].x = 1 + j;
         p2[i].y = 6;
@@ -426,15 +427,23 @@ void Player::getGreenCords()
 
     for (int i = 0; i < 61; ++i) {
         px[i] = p2[i];
+        px[i].safe = p2[i].safe;
     }
-
+    px[0].safe = true;
+    px[9].safe = true;
+    px[14].safe = true;
+    px[23].safe = true;
+    px[28].safe = true;
+    px[37].safe = true;
+    px[42].safe = true;
+    px[51].safe = true;
 }
 
 void Player::getYellowCords()
 {
     Cords p3[61];
     int j = 0;
-    InitiateSafeSpaces();
+   
     for (int i = 0; i < 6; ++i) { // 0 - 5
 
         p3[i].x = 8;
@@ -522,14 +531,23 @@ void Player::getYellowCords()
 
     for (int i = 0; i < 61; ++i) {
         px[i] = p3[i];
+        
     }
+    px[0].safe = true;
+    px[9].safe = true;
+    px[14].safe = true;
+    px[23].safe = true;
+    px[28].safe = true;
+    px[37].safe = true;
+    px[42].safe = true;
+    px[51].safe = true;
 }
 
 void Player::getBlueCords()
 {
     Cords p4[61];
     int j = 0;
-    InitiateSafeSpaces();
+  
     for (int i = 0; i < 6; ++i) { // 0 - 5
 
         p4[i].x = 13 - j;
@@ -617,7 +635,16 @@ void Player::getBlueCords()
 
     for (int i = 0; i < 61; ++i) {
         px[i] = p4[i];
+        
     }
+    px[0].safe = true;
+    px[9].safe = true;
+    px[14].safe = true;
+    px[23].safe = true;
+    px[28].safe = true;
+    px[37].safe = true;
+    px[42].safe = true;
+    px[51].safe = true;
 }
 
 bool Player::IfCheckmate(int player, int x, int y, sf::CircleShape circle[4][4])
@@ -679,7 +706,15 @@ bool Player::IfCheckmate(int player, int x, int y, sf::CircleShape circle[4][4])
 }
 
 
+void Player::SetSixes(int steps)
+{
+    sixes = steps;
+}
 
+int Player::GetSixes() const
+{
+    return sixes;
+}
 
 
 
