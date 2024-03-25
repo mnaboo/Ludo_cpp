@@ -1,0 +1,24 @@
+﻿  Game.cpp
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(18,25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(103,92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(103,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(119,44): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(120,44): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(263,45): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Player.cpp(130): warning C4715: 'Player::IsPawnInPlay': not all control paths return a value
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Player.cpp(706): warning C4715: 'Player::IfCheckmate': not all control paths return a value
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Player.cpp(241): warning C4715: 'Player::Checkmate': not all control paths return a value
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(497): warning C4715: 'Game::Init': not all control paths return a value
+  All 151 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Ludo.vcxproj -> C:\Users\macie\Documents\GitHub\Ludo\x64\Release\Ludo.exe

@@ -317,7 +317,7 @@ int Game::Init()
                 window.draw(scoretext);
 
                 if (diceThrown) {
-                    std::string dicetext = std::to_string(diceCount) + " points were rolled for " + playersColors[currentPlayer];
+                    std::string dicetext = std::to_string(diceCount) + " points were rolled for " + playersColors[currentPlayer] + "\n\nChoose a pawn and press [Enter] to move";
                     sf::Text diceText(dicetext, font, 15);
                     diceText.setPosition(620, 100);
                     diceText.setFillColor(sf::Color::White);
@@ -346,9 +346,9 @@ int Game::Init()
                     }
 
                     if (noMove) {
-                        std::string noMoveText = "No avaliable moves for " + playersColors[currentPlayer];
+                        std::string noMoveText = "No avaliable moves for " + playersColors[currentPlayer] + "\n\nPress [Enter] to continue";
                         sf::Text nomoveText(noMoveText, font, 15);
-                        nomoveText.setPosition(620, 150);
+                        nomoveText.setPosition(620, 180);
                         nomoveText.setFillColor(sf::Color::White);
                         nomoveText.setStyle(sf::Text::Bold);
 
@@ -372,7 +372,7 @@ int Game::Init()
                         }
                         std::string MoveText = "Move is avaliable for :\n\n" + text;
                         sf::Text moveText(MoveText, font, 15);
-                        moveText.setPosition(620, 150);
+                        moveText.setPosition(620, 170);
                         moveText.setFillColor(sf::Color::White);
                         moveText.setStyle(sf::Text::Bold);
 
@@ -403,7 +403,7 @@ int Game::Init()
 
                 }
                 else if (!diceThrown && !sixLimit) {
-                    std::string dicetext = "Roll a dice for " + playersColors[currentPlayer];
+                    std::string dicetext = "\tPress [D] to \n\n Roll a dice for " + playersColors[currentPlayer];
                     sf::Text diceText(dicetext, font, 20);
                     diceText.setPosition(620, 100);
                     diceText.setFillColor(sf::Color::White);
@@ -413,7 +413,7 @@ int Game::Init()
                     //cos z czasem do wyrzutu trzeba bedzie zrobic 
                 }
                 else if (!diceThrown && sixLimit) { //limit 6
-                    std::string MoveText = "Limit of 6's rolled in a row \n\nhas been reached";
+                    std::string MoveText = "Limit of 6's rolled in a row \n\n\t  has been reached\n\n  Press [Enter] to continue";
                     sf::Text moveText(MoveText, font, 15);
                     moveText.setPosition(620, 100);
                     moveText.setFillColor(sf::Color::White);

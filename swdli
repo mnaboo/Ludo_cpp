@@ -1,0 +1,87 @@
+[33mcommit 272679154ddbb47000755c04be511a66108f1dd8[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Sat Jan 20 11:46:52 2024 +0100
+
+    Final 3.0
+    
+    Approved by H
+
+[33mcommit 25e884dd3141d7ad56bef9034976f1ec64c7f545[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Sat Dec 16 12:25:26 2023 +0100
+
+    Second last
+
+[33mcommit dec2d4c096bd0573fc68be2f8795821f963bf063[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Thu Dec 7 09:43:10 2023 +0100
+
+    Final #2
+
+[33mcommit 6853f322ae5b7d0d7cf97986c86b8d33af40758d[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Sat Dec 2 19:07:25 2023 +0100
+
+    Final#1
+
+[33mcommit 45a46757f0de211bd6c1726be2ab1fc16899709b[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Sat Nov 18 14:12:02 2023 +0100
+
+    commit_#5
+
+[33mcommit e3862f4ee9e22d7c6dd273a07633f3959ec84e0e[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Wed Nov 15 21:31:03 2023 +0100
+
+    files moved
+
+[33mcommit 98492eaed235de173dc83bdcd86324e381cfcba0[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Wed Nov 15 21:26:03 2023 +0100
+
+    Update .gitignore
+
+[33mcommit 64c536e3433ac86656c232777872bafb44380db4[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Wed Nov 15 21:24:37 2023 +0100
+
+    Update .gitignore
+
+[33mcommit 88f7431924c502759f312f264b01a8052e4357a7[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Wed Nov 15 21:22:37 2023 +0100
+
+    Update .gitignore
+
+[33mcommit 9ffc47371f9c067c73e4db55f0e7ff34e76ee39e[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Wed Nov 15 21:18:28 2023 +0100
+
+    Commit_#4
+
+[33mcommit 59dfdf75cdde7899ab242a588ee1cd83422f1009[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Mon Nov 13 20:02:49 2023 +0100
+
+    commit_#3
+
+[33mcommit 587a2f5b9e9890a4f98691cfbd7fb4984640693f[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Fri Nov 10 20:53:11 2023 +0100
+
+    commit_nr_2
+
+[33mcommit 7ee14c22c91bf940d83c3076d172ef0382ca2c25[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Thu Oct 26 21:28:04 2023 +0200
+
+    1_com
+    
+    +InitializeBoard
+
+[33mcommit 34d9ad33b2868d1a697d40a16a7dd64e09d4d195[m
+Author: mnaboo <maciek@nabozny.pl>
+Date:   Wed Oct 25 18:41:18 2023 +0200
+
+    Initial commit

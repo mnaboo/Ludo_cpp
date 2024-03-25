@@ -1,0 +1,20 @@
+﻿  Game.cpp
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(18,25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(102,92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(102,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(118,44): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(119,44): warning C4244: '=': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(262,45): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Source.cpp
+  Generating Code...
+C:\Users\macie\Documents\GitHub\Ludo\Ludo\Game.cpp(496): warning C4715: 'Game::Init': not all control paths return a value
+LIBCMTD.lib(exe_winmain.obj) : error LNK2019: unresolved external symbol WinMain referenced in function "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ)
+C:\Users\macie\Documents\GitHub\Ludo\x64\Debug\Ludo.exe : fatal error LNK1120: 1 unresolved externals
