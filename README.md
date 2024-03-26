@@ -1,4 +1,4 @@
-----------------LUDO-----------------
+# LUDO
   
 Ludo is a dynamic board game for 4 players
 has 4 pawns each. The player introduces pieces
